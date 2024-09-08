@@ -31,6 +31,15 @@ export const UserTable: React.FC = () => {
         setFilters(prevFilters => ({ ...prevFilters, [name]: value }));
     };
 
+    const clearFilters = () => {
+        setFilters({
+            name: '',
+            username: '',
+            email: '',
+            phone: '',
+        });
+    };
+
     if (status === 'loading') {
         return (
             <LoadingSpinner/>
@@ -51,27 +60,40 @@ export const UserTable: React.FC = () => {
                 <input
                     name="name"
                     placeholder="Filter by Name"
+                    value={filters.name}
                     onChange={handleFilterChange}
                     className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <input
                     name="username"
                     placeholder="Filter by Username"
+                    value={filters.username}
                     onChange={handleFilterChange}
                     className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <input
                     name="email"
                     placeholder="Filter by Email"
+                    value={filters.email}
                     onChange={handleFilterChange}
                     className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <input
                     name="phone"
                     placeholder="Filter by Phone"
+                    value={filters.phone}
                     onChange={handleFilterChange}
                     className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
+            </div>
+
+            <div className="flex justify-end mb-4">
+                <button
+                    onClick={clearFilters}
+                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                >
+                    Clear Filters
+                </button>
             </div>
 
             <div className="overflow-x-auto">
