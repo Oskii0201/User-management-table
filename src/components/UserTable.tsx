@@ -7,6 +7,7 @@ import {ErrorAlert} from "./ErrorAlert";
 import { saveAs } from 'file-saver';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import {Button} from "./Button";
 
 export const UserTable: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -115,24 +116,9 @@ export const UserTable: React.FC = () => {
             </div>
 
             <div className="flex justify-end mb-4 gap-4">
-                <button
-                    onClick={clearFilters}
-                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-                >
-                    Clear Filters
-                </button>
-                <button
-                    onClick={exportToCsv}
-                    className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
-                >
-                    Export CSV
-                </button>
-                <button
-                    onClick={exportToPdf}
-                    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-                >
-                    Export PDF
-                </button>
+                <Button onClick={clearFilters} color={"blue"}>Clear Filters</Button>
+                <Button onClick={exportToCsv} color={"green"}>Export CSV</Button>
+                <Button onClick={exportToPdf} color={"red"}>Export PDF</Button>
             </div>
 
             <div className="overflow-x-auto">
