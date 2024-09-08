@@ -4,6 +4,9 @@ import { RootState, AppDispatch } from '../store/store';
 import { fetchUsers } from '../store/usersSlice';
 import {LoadingSpinner} from "./LoadingSpinner";
 import {ErrorAlert} from "./ErrorAlert";
+import { saveAs } from 'file-saver';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 export const UserTable: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -38,6 +41,30 @@ export const UserTable: React.FC = () => {
             email: '',
             phone: '',
         });
+    };
+
+    const exportToCsv = () => {
+        const csvRows = [
+            ['Name', 'Username', 'Email', 'Phone'],
+            ...filteredUsers.map(user => [user.name, user.username, user.email, user.phone]),
+        ];
+
+        const csvContent = csvRows.map(row => row.join(',')).join('\n');
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        saveAs(blob, 'users.csv');
+    };
+
+    const exportToPdf = () => {
+        const doc = new jsPDF();
+        doc.text('User Management Table', 20, 10);
+
+        const tableRows = filteredUsers.map(user => [user.name, user.username, user.email, user.phone]);
+        (doc as any).autoTable({
+            head: [['Name', 'Username', 'Email', 'Phone']],
+            body: tableRows,
+        });
+
+        doc.save('users.pdf');
     };
 
     if (status === 'loading') {
@@ -87,12 +114,24 @@ export const UserTable: React.FC = () => {
                 />
             </div>
 
-            <div className="flex justify-end mb-4">
+            <div className="flex justify-end mb-4 gap-4">
                 <button
                     onClick={clearFilters}
                     className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
                 >
                     Clear Filters
+                </button>
+                <button
+                    onClick={exportToCsv}
+                    className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+                >
+                    Export CSV
+                </button>
+                <button
+                    onClick={exportToPdf}
+                    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+                >
+                    Export PDF
                 </button>
             </div>
 
