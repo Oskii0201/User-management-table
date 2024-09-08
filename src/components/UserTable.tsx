@@ -18,12 +18,25 @@ export const UserTable: React.FC = () => {
         email: '',
         phone: '',
     });
+    const [sortColumn, setSortColumn] = useState<string | null>(null);
+    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
     useEffect(() => {
         dispatch(fetchUsers());
     }, [dispatch]);
 
-    const filteredUsers = users.filter(user =>
+    const sortedUsers = [...users].sort((a, b) => {
+        if (sortColumn) {
+            const valueA = a[sortColumn as keyof typeof a].toString().toLowerCase();
+            const valueB = b[sortColumn as keyof typeof b].toString().toLowerCase();
+
+            if (valueA < valueB) return sortOrder === 'asc' ? -1 : 1;
+            if (valueA > valueB) return sortOrder === 'asc' ? 1 : -1;
+        }
+        return 0;
+    });
+
+    const filteredUsers = sortedUsers.filter(user =>
         user.name.toLowerCase().includes(filters.name.toLowerCase()) &&
         user.username.toLowerCase().includes(filters.username.toLowerCase()) &&
         user.email.toLowerCase().includes(filters.email.toLowerCase()) &&
@@ -33,6 +46,15 @@ export const UserTable: React.FC = () => {
     const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFilters(prevFilters => ({ ...prevFilters, [name]: value }));
+    };
+
+    const handleSort = (column: string) => {
+        if (sortColumn === column) {
+            setSortOrder(prevOrder => (prevOrder === 'asc' ? 'desc' : 'asc'));
+        } else {
+            setSortColumn(column);
+            setSortOrder('asc');
+        }
     };
 
     const clearFilters = () => {
@@ -125,10 +147,18 @@ export const UserTable: React.FC = () => {
                 <table className="min-w-full table-auto">
                     <thead>
                     <tr className="bg-gray-200">
-                        <th className="px-4 py-2 text-left">Name</th>
-                        <th className="px-4 py-2 text-left">Username</th>
-                        <th className="px-4 py-2 text-left">Email</th>
-                        <th className="px-4 py-2 text-left">Phone</th>
+                        <th className="px-4 py-2 text-left cursor-pointer" onClick={() => handleSort('name')}>
+                            Name {sortColumn === 'name' && (sortOrder === 'asc' ? '↑' : '↓')}
+                        </th>
+                        <th className="px-4 py-2 text-left cursor-pointer" onClick={() => handleSort('username')}>
+                            Username {sortColumn === 'username' && (sortOrder === 'asc' ? '↑' : '↓')}
+                        </th>
+                        <th className="px-4 py-2 text-left cursor-pointer" onClick={() => handleSort('email')}>
+                            Email {sortColumn === 'email' && (sortOrder === 'asc' ? '↑' : '↓')}
+                        </th>
+                        <th className="px-4 py-2 text-left cursor-pointer" onClick={() => handleSort('phone')}>
+                            Phone {sortColumn === 'phone' && (sortOrder === 'asc' ? '↑' : '↓')}
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
