@@ -1,46 +1,70 @@
-# Getting Started with Create React App
+# User Management Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of Contents
 
-## Available Scripts
+1. [Description](#description)
+2. [Demo](#demo)
+3. [Features](#features)
+4. [Technologies Used](#technologies-used)
+5. [Dependencies](#dependencies)
+6. [Setup](#setup)
 
-In the project directory, you can run:
+## Description
 
-### `npm start`
+This project is a User Management Application built with **React**, **Redux**, **TypeScript**, and **Tailwind CSS**. It fetches user data using **Axios** from an external API, displays it in a table with advanced filtering, sorting functionality, and supports exporting the data to **CSV** and **PDF** formats.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Demo
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+You can view the live demo of the application here: [User Management Demo](https://user-management-table-dybas.netlify.app/)
 
-### `npm test`
+## Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **User Table**: Displays user data (name, username, email, and phone).
+- **Filtering**: Allows filtering users by name, username, email, or phone.
+- **Sorting**: Supports sorting by any column in ascending or descending order.
+- **Export to CSV**: Export the filtered and sorted data to a CSV file.
+- **Export to PDF**: Export the filtered and sorted data to a PDF file.
+- **Responsive Design**: Uses Tailwind CSS for a responsive and modern user interface.
 
-### `npm run build`
+## Technologies Used
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **React**: A JavaScript library for building user interfaces.
+- **Redux Toolkit**: For state management.
+- **TypeScript**: For static type checking.
+- **Tailwind CSS**: For rapid and modern styling.
+- **Axios**: For making HTTP requests to fetch user data.
+- **jsPDF**: For generating PDF files.
+- **file-saver**: For saving files locally (CSV).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Dependencies
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Axios**: Used to fetch data from the API.
+- **file-saver**: Used to save CSV files.
+- **jsPDF & jspdf-autotable**: Used to generate and format tables in PDF.
+- **Tailwind CSS**: For utility-first CSS design.
+- **Redux Toolkit**: Simplifies Redux state management.
 
-### `npm run eject`
+## Setup
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To run the project locally, follow these steps:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Clone the repository**:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+    ```bash
+    git clone https://github.com/Oskii0201/User-management-table
+    cd user-management
+    ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+2. **Install dependencies**:
 
-## Learn More
+    ```bash
+    npm install
+    ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. **Run the development server**:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    ```bash
+    npm start
+    ```
+
+    The application will start at `http://localhost:3000`.
