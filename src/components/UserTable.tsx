@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../store/store';
 import { fetchUsers } from '../store/usersSlice';
+import {LoadingSpinner} from "./LoadingSpinner";
+import {ErrorAlert} from "./ErrorAlert";
 
 export const UserTable: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const users = useSelector((state: RootState) => state.users.users);
+    const { users, status, error } = useSelector((state: RootState) => state.users);
     const [filters, setFilters] = useState({
         name: '',
         username: '',
@@ -28,6 +30,18 @@ export const UserTable: React.FC = () => {
         const { name, value } = e.target;
         setFilters(prevFilters => ({ ...prevFilters, [name]: value }));
     };
+
+    if (status === 'loading') {
+        return (
+            <LoadingSpinner/>
+        );
+    }
+
+    if (status === 'failed') {
+        return (
+            <ErrorAlert errorMessage={error || 'Unknown error'} />
+        );
+    }
 
     return (
         <div className="container mx-auto p-4">
